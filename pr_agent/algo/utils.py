@@ -131,7 +131,7 @@ def convert_to_markdown_v2(output_data: dict,
         "Focused PR": "✨",
         "Relevant ticket": "🎫",
         "Security concerns": "🔒",
-        "Todo sections": "✅",
+        "Todo fixme sections": "✅",
         "Insights from user's answers": "📝",
         "Code feedback": "🤖",
         "Estimated effort to review [1-5]": "⏱️",
@@ -210,19 +210,19 @@ def convert_to_markdown_v2(output_data: dict,
                     markdown_text += f"### {emoji} Security concerns\n\n"
                     value = emphasize_header(value.strip(), only_markdown=True)
                     markdown_text += f"{value}\n\n"
-        elif 'todo sections' in key_nice.lower():
+        elif 'todo fixme sections' in key_nice.lower():
             if gfm_supported:
                 markdown_text += f"<tr><td>"
                 if is_value_no(value):
-                    markdown_text += f"{emoji}&nbsp;<strong>No ToDo sections</strong>"
+                    markdown_text += f"{emoji}&nbsp;<strong>No TODO / FIXME sections</strong>"
                 else:
-                    markdown_text += f"{emoji}&nbsp;<strong>ToDo sections</strong><br><br>\n\n"
+                    markdown_text += f"{emoji}&nbsp;<strong>TODO / FIXME sections</strong><br><br>\n\n"
                     if isinstance(value, list):
                         markdown_text += "<ul>\n"
-                        for todo_item in value:
-                            relevant_file = todo_item.get('relevant_file', '')
-                            line_number = todo_item.get('line_number', '')
-                            content = todo_item.get('content', '')
+                        for todo_fixme_item in value:
+                            relevant_file = todo_fixme_item.get('relevant_file', '')
+                            line_number = todo_fixme_item.get('line_number', '')
+                            content = todo_fixme_item.get('content', '')
                             reference_link = None
                             if git_provider and relevant_file and line_number:
                                 reference_link = git_provider.get_line_link(relevant_file, line_number, line_number)
@@ -237,14 +237,14 @@ def convert_to_markdown_v2(output_data: dict,
                 markdown_text += f"</td></tr>\n"
             else:
                 if is_value_no(value):
-                    markdown_text += f"### {emoji} No ToDo sections\n\n"
+                    markdown_text += f"### {emoji} No TODO / FIXME sections\n\n"
                 else:
-                    markdown_text += f"### {emoji} ToDo sections\n\n"
+                    markdown_text += f"### {emoji} TODO / FIXME sections\n\n"
                     if isinstance(value, list):
-                        for todo_item in value:
-                            relevant_file = todo_item.get('relevant_file', '')
-                            line_number = todo_item.get('line_number', '')
-                            content = todo_item.get('content', '')
+                        for todo_fixme_item in value:
+                            relevant_file = todo_fixme_item.get('relevant_file', '')
+                            line_number = todo_fixme_item.get('line_number', '')
+                            content = todo_fixme_item.get('content', '')
                             if git_provider and relevant_file and line_number:
                                 reference_link = git_provider.get_line_link(relevant_file, line_number, line_number)
                                 file_line = f"[{relevant_file} [{line_number}]]({reference_link})"

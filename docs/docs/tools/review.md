@@ -100,8 +100,8 @@ extra_instructions = "..."
         <td>If set to true, the tool will add a section that checks if the PR contains a possible security or vulnerability issue. Default is true.</td>
       </tr>
         <tr>
-        <td><b>require_todo_scan</b></td>
-        <td>If set to true, the tool will add a section that lists TODO comments found in the PR code changes. Default is true.
+        <td><b>require_todo_fixme_scan</b></td>
+        <td>If set to true, the tool will add a section that lists TODO and FIXME comments found in the PR code changes. Default is true.
         </td>
       </tr>
       <tr>
